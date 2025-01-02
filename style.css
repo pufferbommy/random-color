@@ -1,0 +1,112 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    flex-direction: column;
+    margin: 0;
+    font-family: "Rubik", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    gap: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+#color-name,
+#color-hex {
+    margin: 0;
+    text-align: center;
+}
+#color-name {
+    font-size: clamp(4rem, 10vw, 10rem);
+}
+#color-hex {
+    font-size: clamp(2rem, 5vw, 5rem);
+}
+#repo-link {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+}
+#repo-link img {
+    width: 2rem;
+    height: 2rem;
+}
+#random-button {
+    width: 4rem;
+    height: 4rem;
+    cursor: pointer;
+    border-radius: 10rem;
+    position: fixed;
+    bottom: 4rem;
+    border: 2px solid black;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.75), 4px 4px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 200ms, transform 200ms;
+}
+#random-button:active {
+    transform: scale(0.95);
+    box-shadow: 0px 0px rgba(0, 0, 0, 0.75), 0px 0px rgba(0, 0, 0, 0.5);
+}
+.alert {
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    padding: 1rem;
+    font-size: 2rem;
+    border-radius: 1rem;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.75), 4px 4px rgba(0, 0, 0, 0.5);
+    animation: float 2s forwards;
+    position: fixed;
+    z-index: 100;
+    white-space: nowrap;
+    transform: translateY(2rem);
+}
+#follow-mouse-text {
+    position: fixed;
+    opacity: 0;
+    margin: 0;
+}
+#volumn-button {
+    width: 4rem;
+    height: 4rem;
+    cursor: pointer;
+    border-radius: 10rem;
+    position: fixed;
+    top: 1rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    right: 1rem;
+    border: 2px solid black;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.75), 4px 4px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 200ms
+}
+#volumn-button:active {
+    transform: scale(0.95);
+    box-shadow: 0px 0px rgba(0, 0, 0, 0.75), 0px 0px rgba(0, 0, 0, 0.5);
+}
+#volumn-button[data-muted="true"] svg:first-child {
+    display: none;
+}
+#volumn-button[data-muted="false"] svg:last-child {
+    display: none;
+}
+@keyframes float {
+    0% {
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-2rem);
+        opacity: 1;
+    }
+    90% {
+        transform: translateY(-1rem);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh);
+        opacity: 1;
+    }
+}
