@@ -138,6 +138,24 @@ function updateDisplay(color) {
     document.body.style.color = textColor
     document.title = `${color.name} - ${color.hex}`
     document.querySelector('#repo-link img').style.filter = isDark ? 'invert(1)' : 'invert(0)'
+    
+    // Generate and update favicon
+    const favicon = document.querySelector('link[rel="icon"]') || document.createElement('link')
+    favicon.type = 'image/x-icon'
+    favicon.rel = 'icon'
+    
+    const canvas = document.createElement('canvas')
+    canvas.width = 32
+    canvas.height = 32
+    const ctx = canvas.getContext('2d')
+    ctx.fillStyle = color.hex
+    ctx.arc(16, 16, 16, 0, 2 * Math.PI)
+    ctx.fill()
+    
+    favicon.href = canvas.toDataURL()
+    if (!document.querySelector('link[rel="icon"]')) {
+        document.head.appendChild(favicon)
+    }
 }
 
 function showAlert(mouseX, mouseY, gap) {
@@ -167,7 +185,6 @@ function updateFollowMouseText(mouseX, mouseY, gap) {
     followMouseTextEl.style.opacity = 1
     followMouseTextEl.style.left = isFlippedX ? `${mouseX - followMouseTextEl.clientWidth - gap}px` : `${mouseX + gap}px`
     followMouseTextEl.style.top = isFlippedY ? `${mouseY - followMouseTextEl.clientHeight - gap}px` : `${mouseY + gap}px`
-
 }
 
 function playSound(isMuted) {
