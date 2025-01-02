@@ -40,13 +40,15 @@ body {
     cursor: pointer;
     border-radius: 10rem;
     position: fixed;
+    left: 50%;
+    transform: scale(1) translateX(-50%);
     bottom: 4rem;
     border: 2px solid black;
     box-shadow: 2px 2px rgba(0, 0, 0, 0.75), 4px 4px rgba(0, 0, 0, 0.5);
     transition: box-shadow 200ms, transform 200ms;
 }
 #random-button:active {
-    transform: scale(0.95);
+    transform: scale(0.95) translateX(-50%);
     box-shadow: 0px 0px rgba(0, 0, 0, 0.75), 0px 0px rgba(0, 0, 0, 0.5);
 }
 .alert {
@@ -67,6 +69,7 @@ body {
     position: fixed;
     opacity: 0;
     margin: 0;
+    z-index: 100;
 }
 #volumn-button {
     width: 4rem;
