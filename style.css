@@ -1,18 +1,25 @@
+:root {
+    --text-base: clamp(1rem, 2vw, 1.5rem);
+    --text-lg: clamp(2rem, 5vw, 5rem);
+    --text-xl: clamp(4rem, 10vw, 10rem);   
+}
+
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100dvh;
-    flex-direction: column;
     margin: 0;
     font-family: "Rubik", serif;
-    font-optical-sizing: auto;
     font-weight: 400;
-    font-style: normal;
-    gap: 1rem;
     padding: 1rem;
     box-sizing: border-box;
     cursor: pointer;
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+    flex-direction: column;
 }
 #color-name,
 #color-hex {
@@ -20,81 +27,74 @@ body {
     text-align: center;
 }
 #color-name {
-    font-size: clamp(4rem, 10vw, 10rem);
+    font-size: var(--text-xl)
 }
 #color-hex {
-    font-size: clamp(2rem, 5vw, 5rem);
+    font-size: var(--text-lg)
 }
 #repo-link {
     position: fixed;
     right: 1rem;
     bottom: 1rem;
 }
-#repo-link img {
-    width: 2rem;
-    height: 2rem;
-}
-#random-button {
+.icon-btn {
     width: 4rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     height: 4rem;
     cursor: pointer;
-    border-radius: 10rem;
+    border-radius: 50%;
+    border: 2px solid black;
+    transition: box-shadow 200ms, transform 200ms;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.75), 4px 4px rgba(0, 0, 0, 0.5);
+    transform: scale(1);
+}
+.icon-btn:active {
+    box-shadow: 0px 0px rgba(0, 0, 0, 0.75), 0px 0px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+}
+#random-button {
     position: fixed;
     left: 50%;
-    transform: scale(1) translateX(-50%);
     bottom: 4rem;
-    border: 2px solid black;
-    box-shadow: 2px 2px rgba(0, 0, 0, 0.75), 4px 4px rgba(0, 0, 0, 0.5);
-    transition: box-shadow 200ms, transform 200ms;
-}
-#random-button:active {
-    transform: scale(0.95) translateX(-50%);
-    box-shadow: 0px 0px rgba(0, 0, 0, 0.75), 0px 0px rgba(0, 0, 0, 0.5);
+    transform: translateX(-50%);
 }
 .alert {
     border: 2px solid black;
     background-color: white;
     color: black;
     padding: 1rem;
-    font-size: 2rem;
     border-radius: 1rem;
     box-shadow: 2px 2px rgba(0, 0, 0, 0.75), 4px 4px rgba(0, 0, 0, 0.5);
     animation: float 2s forwards;
     position: fixed;
-    z-index: 100;
     white-space: nowrap;
+    font-size: var(--text-base);
     transform: translateY(2rem);
 }
 #follow-mouse-text {
     position: fixed;
     opacity: 0;
     margin: 0;
-    z-index: 100;
+    z-index: 1;
+    font-size: var(--text-base);
 }
 #volumn-button {
-    width: 4rem;
-    height: 4rem;
-    cursor: pointer;
-    border-radius: 10rem;
     position: fixed;
     top: 1rem;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
     right: 1rem;
-    border: 2px solid black;
-    box-shadow: 2px 2px rgba(0, 0, 0, 0.75), 4px 4px rgba(0, 0, 0, 0.5);
-    transition: box-shadow 200ms
 }
-#volumn-button:active {
-    transform: scale(0.95);
-    box-shadow: 0px 0px rgba(0, 0, 0, 0.75), 0px 0px rgba(0, 0, 0, 0.5);
+#volumn-button svg {
+    transition: opacity 200ms;
 }
 #volumn-button[data-muted="true"] svg:first-child {
-    display: none;
+    opacity: 0;
+    position: absolute;
 }
 #volumn-button[data-muted="false"] svg:last-child {
-    display: none;
+    opacity: 0;
+    position: absolute;
 }
 @keyframes float {
     0% {
@@ -110,6 +110,12 @@ body {
     }
     100% {
         transform: translateY(-100vh);
+        opacity: 1;
+    }
+}
+@media (max-width: 600px) {
+    #follow-mouse-text {
+        position: static;
         opacity: 1;
     }
 }

@@ -15,6 +15,8 @@ const MESSAGES = {
 init()
 
 async function init() {
+    const isSmallScreen = matchMedia("(max-width: 600px)").matches
+
     // Get DOM elements
     const elements = {
         randomButton: document.getElementById('random-button'),
@@ -71,6 +73,13 @@ async function init() {
 
     // Add event listeners
     elements.randomButton.addEventListener('click', handleRandomButtonClick)
+    elements.repoLink.addEventListener('click', handleRepoLinkClick)
+    elements.volumeButton.addEventListener('click', handleVolumeButtonClick)
+    document.body.addEventListener('click', handleBodyClick)
+    document.body.addEventListener('mousemove', handleMouseMove)
+
+    if(isSmallScreen) return
+
     elements.randomButton.addEventListener('mouseenter', () => {
         elements.followMouseText.innerText = MESSAGES.RANDOM_COLOR
     })
@@ -78,7 +87,6 @@ async function init() {
         elements.followMouseText.innerText = MESSAGES.DEFAULT
     })
 
-    elements.repoLink.addEventListener('click', handleRepoLinkClick)
     elements.repoLink.addEventListener('mouseenter', () => {
         elements.followMouseText.innerText = MESSAGES.SOURCE_CODE
     })
@@ -86,16 +94,12 @@ async function init() {
         elements.followMouseText.innerText = MESSAGES.DEFAULT
     })
 
-    elements.volumeButton.addEventListener('click', handleVolumeButtonClick)
     elements.volumeButton.addEventListener('mouseenter', () => {
         elements.followMouseText.innerText = isMuted ? MESSAGES.UNMUTE : MESSAGES.MUTE
     })
     elements.volumeButton.addEventListener('mouseleave', () => {
         elements.followMouseText.innerText = MESSAGES.DEFAULT
     })
-
-    document.body.addEventListener('click', handleBodyClick)
-    document.body.addEventListener('mousemove', handleMouseMove)
 }
 
 async function getColors() {
@@ -168,10 +172,18 @@ function showAlert(mouseX, mouseY, gap) {
 
     document.body.appendChild(alertEl)
 
-    const isFlippedX = mouseX + alertEl.clientWidth + gap > window.innerWidth
+    const isOverflowLeft = mouseX - alertEl.clientWidth - gap <= 0
+    const isOverflowRight = mouseX + alertEl.clientWidth + gap > window.innerWidth
     const isFlippedY = mouseY - alertEl.clientHeight - gap <= 0
 
-    alertEl.style.left = isFlippedX ? `${mouseX - alertEl.clientWidth - gap}px` : `${mouseX + gap}px`
+    if(isOverflowLeft && isOverflowRight) {
+        alertEl.style.left = `calc(50% - ${alertEl.clientWidth / 2}px)`
+    } else if (isOverflowLeft) {
+        alertEl.style.left = `${mouseX + gap}px`
+    } else {
+        alertEl.style.left = `${mouseX - alertEl.clientWidth - gap}px`
+    }
+    
     alertEl.style.top = isFlippedY ? `${mouseY + alertEl.clientHeight}px` : `${mouseY - alertEl.clientHeight}px`
 
     alertEl.addEventListener('animationend', () => alertEl.remove())
