@@ -160,6 +160,14 @@ function updateDisplay(color) {
     if (!document.querySelector('link[rel="icon"]')) {
         document.head.appendChild(favicon)
     }
+
+    // Create theme color
+    const themeColor = document.querySelector('meta[name="theme-color"]') || document.createElement('meta')
+    themeColor.name = 'theme-color'
+    themeColor.content = color.hex
+    if (!document.querySelector('meta[name="theme-color"]')) {
+        document.head.appendChild(themeColor)
+    }
 }
 
 function showAlert(mouseX, mouseY, gap) {
